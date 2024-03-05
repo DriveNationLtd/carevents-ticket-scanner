@@ -2,7 +2,6 @@ import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import "./globals.css";
 import { Header } from "@/components/Header";
-import QRScanner from "@/components/scanner/Scanner";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -12,7 +11,7 @@ export const metadata: Metadata = {
   authors: [{
     name: "Keshanth Jude"
   }],
-  manifest: "/manifest.json",
+  // manifest: "/manifest.json",
   themeColor: "#b89855",
 };
 
@@ -23,7 +22,8 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className={inter.className} suppressHydrationWarning={true}>
+      <link rel="manifest" href="/manifest.json" crossOrigin="use-credentials"></link>
+      <body className={`min-h-screen ${inter.className}`} suppressHydrationWarning={true}>
         <Header />
         {children}
       </body>

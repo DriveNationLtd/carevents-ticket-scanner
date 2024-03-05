@@ -2,6 +2,7 @@
 import { useState } from 'react';
 import { QrReader } from 'react-qr-reader';
 import { ScanResult } from './ScanResult';
+import Image from 'next/image';
 
 const QRScanner = () => {
     const [result, setResult] = useState<string | null>(null);
@@ -37,24 +38,12 @@ const QRScanner = () => {
             )}
             {(!result && !startScan) && (
                 <div className='flex flex-col items-center'>
-                    <div className='flex flex-col items-center'>
-                        {/* Scan icon */}
-                        <svg
-                            xmlns="http://www.w3.org/2000/svg"
-                            className="h-10 w-10 text-blue-500 cursor-pointer"
-                            fill="none"
-                            viewBox="0 0 24 24"
-                            stroke="currentColor"
-                            onClick={() => setStartScan(true)}
-                        >
-                            <path
-                                strokeLinecap="round"
-                                strokeLinejoin="round"
-                                strokeWidth={2}
-                                d="M12 14l9-5-9-5-9 5 9 5z"
-                            />
-                        </svg>
-                        {/* Optional text */}
+                    <div className='flex flex-col items-center' onClick={
+                        () => {
+                            setStartScan(true);
+                        }
+                    }>
+                        <Image src='/assets/scan-icon.webp' alt='QR Code' width={100} height={100} />
                         <p className="text-sm text-gray-500">Click to scan QR code</p>
                     </div>
                 </div>
