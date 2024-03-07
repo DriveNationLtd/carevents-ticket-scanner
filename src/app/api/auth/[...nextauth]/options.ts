@@ -1,5 +1,16 @@
-import type { NextAuthOptions, User } from "next-auth";
+import NextAuth, { NextAuthOptions, DefaultSession } from "next-auth";
 import CredentialsProvider from "next-auth/providers/credentials";
+
+declare module "next-auth" {
+    interface Session extends DefaultSession {
+        user: {
+            id: string;
+            first_name: string;
+            last_name: string;
+            roles: string[];
+        } & DefaultSession["user"];
+    }
+}
 
 const API_URL = process.env.HEADLESS_CMS_API_URL;
 
@@ -32,8 +43,6 @@ export const options: NextAuthOptions = {
                 if (credentials) {
                     const response = await verifyUser(credentials);
 
-                    console.log(response.user);
-
                     if (response && response.success) {
                         return response.user;
                     }
@@ -45,19 +54,14 @@ export const options: NextAuthOptions = {
     ],
     callbacks: {
         session: async ({ session, token }) => {
-            if (session.user) {
-                // @ts-ignore
+            if (session.user && token?.sub) {
                 session.user.id = token?.sub;
             }
 
-            return Promise.resolve(session);
+            return session;
         },
-        jwt: async ({ account, user, session, profile, token }) => {
-            if (user) {
-                token.sub = user.id;
-            }
-
-            return Promise.resolve(token);
+        jwt: async ({ token }) => {
+            return token;
         },
     }
 };

@@ -1,18 +1,27 @@
 "use client"
-import { useState } from 'react';
+import { useCallback, useState } from 'react';
 import { QrReader } from 'react-qr-reader';
 import { ScanResult } from './ScanResult';
 import Image from 'next/image';
+import verifyScanAction from '../../../actions/VerifyScan';
+import { Session } from 'next-auth';
 
-const QRScanner = () => {
+
+interface QRScannerProps {
+    session: Session;
+}
+
+const QRScanner: React.FC<QRScannerProps> = ({ session }) => {
     const [result, setResult] = useState<string | null>(null);
     const [startScan, setStartScan] = useState<boolean>(false);
 
-    const handleScan = (data: string | null) => {
+    const handleScan = useCallback(async (data: string | null) => {
         if (data) {
             setResult(data);
+            setStartScan(false);
+            verifyScanAction(session, data);
         }
-    };
+    }, [session]);
 
     const handleError = (err: Error) => {
         console.error(err);
@@ -26,6 +35,8 @@ const QRScanner = () => {
                     className='w-full h-full max-w-lg max-h-lg px-23'
                     constraints={{ frameRate: { ideal: 10, max: 15 }, facingMode: "environment", displaySurface: "window" }}
                     onResult={(result, error) => {
+                        if (!startScan) return;
+
                         if (result) {
                             handleScan(result.getText());
                         }

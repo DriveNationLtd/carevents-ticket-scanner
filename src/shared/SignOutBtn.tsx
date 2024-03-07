@@ -1,9 +1,10 @@
 'use client'
+
 import { signOut } from "next-auth/react";
 
 export const SignOutBtn: React.FC = () => {
     const handleSignOut = async () => {
-        await signOut({ redirect: true, callbackUrl: '/' })
+        await signOut()
     }
 
     return (
