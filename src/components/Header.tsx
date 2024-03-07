@@ -1,4 +1,6 @@
 'use client'
+import { signOut } from "@/auth";
+import { SignOutBtn } from "@/shared/SignOutBtn";
 import Image from "next/image";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
@@ -49,7 +51,9 @@ export const Header: React.FC = () => {
                     </div>
 
                     <div className="bottom-nav">
-                        <li onClick={closeMenu}><Link href="/api/auth/signout">Sign Out</Link></li>
+                        <li onClick={closeMenu}>
+                            <SignOutBtn />
+                        </li>
                     </div>
                 </ul>
             </div>

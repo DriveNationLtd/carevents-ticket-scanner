@@ -1,7 +1,4 @@
-import { options } from '@/app/api/auth/[...nextauth]/options';
-import { getEvents } from '@/endpoints/events/route';
-import { getServerSession } from 'next-auth';
-import { redirect } from 'next/navigation';
+import { getEvents } from "@/actions/VerifyScan";
 
 interface EventsListProps {
     // events: [] | null;
@@ -9,13 +6,7 @@ interface EventsListProps {
 }
 
 export const EventsList: React.FC<EventsListProps> = async () => {
-    let session = await getServerSession(options);
-
-    if (!session) {
-        return redirect('/api/auth/signin?callbackUrl=/');
-    }
-
-    const data = await getEvents(session);
+    const data = await getEvents();
 
     return (
         <div className='container mx-auto px-4'>

@@ -1,12 +1,26 @@
-import { Session } from "next-auth";
+"use server"
+
+import { auth } from "@/auth";
+import { TicketScanResponse } from "@/types/event";
 
 const API_URL = process.env.HEADLESS_CMS_API_URL;
 
-export const getEvents = async (session: Session) => {
-    const { user } = session;
+const getSessionUser = async () => {
+    const session = await auth();
+
+    if (!session) {
+        throw new Error("No session found");
+    }
+
+    return session.user;
+}
+
+export const getEvents = async () => {
+
     let url = `${API_URL}/wp-json/ticket_scanner/v1/get_user_events`;
 
     try {
+        const user = await getSessionUser();
         let response = await fetch(url, {
             method: "POST",
             headers: {
@@ -20,17 +34,18 @@ export const getEvents = async (session: Session) => {
 
         const data = JSON.parse(await response.json());
         return data;
-    } catch (error) {
-        return { error: "Internal Server Error" };
+    } catch (error: any) {
+        return { error: error.message };
     }
 }
 
 
-export const verifyScan = async (session: Session, scannedData: string | null) => {
-    const { user } = session;
+export const verifyScan = async (scannedData: string | null): Promise<TicketScanResponse> => {
     let url = `${API_URL}/wp-json/ticket_scanner/v1/verify_scanned_ticket`;
 
     try {
+        const user = await getSessionUser();
+
         let response = await fetch(url, {
             method: "POST",
             headers: {
@@ -45,16 +60,20 @@ export const verifyScan = async (session: Session, scannedData: string | null) =
 
         const data = JSON.parse(await response.json());
         return data;
-    } catch (error) {
-        return { error: "Internal Server Error" };
+    } catch (error: any) {
+        return {
+            success: false,
+            error: error.message ?? "Internal Server Error",
+        }
     }
 }
 
-export const redeemTicket = async (session: Session, ticket_id: string) => {
-    const { user } = session;
+export const redeemTicket = async (ticket_id: string) => {
     let url = `${API_URL}/wp-json/ticket_scanner/v1/redeem_ticket`;
 
     try {
+        const user = await getSessionUser();
+
         let response = await fetch(url, {
             method: "POST",
             headers: {

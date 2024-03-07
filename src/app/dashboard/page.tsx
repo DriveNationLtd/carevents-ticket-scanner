@@ -1,10 +1,9 @@
-import { getServerSession } from 'next-auth';
-import { options } from '../api/auth/[...nextauth]/options';
 import { redirect } from 'next/navigation';
 import { SignOutBtn } from '@/shared/SignOutBtn';
+import { auth } from '@/auth';
 
 const Dashboard: React.FC = async () => {
-    let session = await getServerSession(options);
+    let session = await auth();
     let user = session?.user;
 
     if (!session) {

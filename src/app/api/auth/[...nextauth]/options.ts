@@ -1,4 +1,4 @@
-import NextAuth, { NextAuthOptions, DefaultSession } from "next-auth";
+import { NextAuthConfig, DefaultSession } from "next-auth";
 import CredentialsProvider from "next-auth/providers/credentials";
 
 declare module "next-auth" {
@@ -31,7 +31,8 @@ const verifyUser = async (credentials: { email: string; password: string }) => {
     return null;
 };
 
-export const options: NextAuthOptions = {
+export const options: NextAuthConfig = {
+    session: { strategy: "jwt" },
     providers: [
         CredentialsProvider({
             name: "Email",
@@ -41,6 +42,7 @@ export const options: NextAuthOptions = {
             },
             async authorize(credentials) {
                 if (credentials) {
+                    // @ts-ignore
                     const response = await verifyUser(credentials);
 
                     if (response && response.success) {

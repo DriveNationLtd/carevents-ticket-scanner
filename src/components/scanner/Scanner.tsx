@@ -1,64 +1,75 @@
 "use client"
-import { useCallback, useState } from 'react';
-import { QrReader } from 'react-qr-reader';
-import { ScanResult } from './ScanResult';
-import Image from 'next/image';
-import verifyScanAction from '../../../actions/VerifyScan';
-import { Session } from 'next-auth';
 
+import { useEffect, useRef, useState } from 'react';
+
+// Server actions
+import { verifyScan } from '@/actions/VerifyScan';
+
+// Scanner library
+import { Html5QrcodeScanner } from 'html5-qrcode';
+import { Html5QrcodeScannerConfig } from 'html5-qrcode/esm/html5-qrcode-scanner';
+import { Html5QrcodeError } from 'html5-qrcode/esm/core';
+
+// Components
+import { ScanResult } from './ScanResult';
 
 interface QRScannerProps {
-    session: Session;
 }
 
-const QRScanner: React.FC<QRScannerProps> = ({ session }) => {
+let config: Html5QrcodeScannerConfig = { qrbox: { width: 250, height: 250 }, fps: 20}
+
+const QRScanner: React.FC<QRScannerProps> = ({  }) => {
     const [result, setResult] = useState<string | null>(null);
-    const [startScan, setStartScan] = useState<boolean>(false);
+    const scannerRef = useRef<Html5QrcodeScanner | null>(null);
 
-    const handleScan = useCallback(async (data: string | null) => {
-        if (data) {
-            setResult(data);
-            setStartScan(false);
-            verifyScanAction(session, data);
+    useEffect(() => {
+        if (result === null) {
+            scannerRef.current = null;
         }
-    }, [session]);
 
-    const handleError = (err: Error) => {
-        console.error(err);
-    };
+        if (!scannerRef.current) {
+            const scanner = new Html5QrcodeScanner("reader", config, false); // Assuming 'config' is defined elsewhere
+            scannerRef.current = scanner;
+
+            const onScanSuccess = async (decodedText: string) => {
+                scanner.clear();
+                setResult(decodedText);
+            };
+
+            const handleError = (errorMessage: string, error: Html5QrcodeError) => {
+                // console.log('handleError', errorMessage, error);
+            };
+
+            scanner.render(onScanSuccess, handleError);
+        }
+
+        return () => {
+            if (scannerRef.current) {
+                scannerRef.current.clear();
+                scannerRef.current = null;
+            }
+        };
+    }, [result]);
+
+    useEffect(() => {
+        async function callAction(result: string) {
+            const response = await verifyScan(result);
+            console.log('response', response);
+            if (response.success) {
+            }
+        }
+
+        if (result) {
+            callAction(result);
+        }
+    }, [result]);
 
     return (
         <div className='w-full h-full flex justify-center items-center'>
-            {(!result && startScan) && (
-                <QrReader
-                    scanDelay={500}
-                    className='w-full h-full max-w-lg max-h-lg px-23'
-                    constraints={{ frameRate: { ideal: 10, max: 15 }, facingMode: "environment", displaySurface: "window" }}
-                    onResult={(result, error) => {
-                        if (!startScan) return;
+            <div id="reader"></div>
 
-                        if (result) {
-                            handleScan(result.getText());
-                        }
+            <button onClick={() => setResult('bC90bEVNdzNDdzJiRFBCeHdhQUYwdz09')}>Reset</button>
 
-                        if (error) {
-                            handleError(error);
-                        }
-                    }}
-                />
-            )}
-            {(!result && !startScan) && (
-                <div className='flex flex-col items-center'>
-                    <div className='flex flex-col items-center' onClick={
-                        () => {
-                            setStartScan(true);
-                        }
-                    }>
-                        <Image src='/assets/scan-icon.webp' alt='QR Code' width={100} height={100} />
-                        <p className="text-sm text-gray-500">Click to scan QR code</p>
-                    </div>
-                </div>
-            )}
             {result && <ScanResult result={result} callback={setResult} />}
         </div>
     );
