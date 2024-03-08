@@ -5,6 +5,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useState } from 'react';
+import TransitionLink from "./TransistionLink";
 
 const navLinks = [
     { href: '/', label: 'Home' },
@@ -45,7 +46,7 @@ export const Header: React.FC = () => {
                     <div className="top-nav flex flex-col gap-4">
                         {navLinks.map((link, index) => (
                             <li key={index} onClick={closeMenu}>
-                                <Link href={link.href} className={`${pathname === link.href ? 'text-white/60' : 'text-white '}`}>{link.label}</Link>
+                                <TransitionLink href={link.href} label={link.label} className={`${pathname === link.href ? 'text-white/60' : 'text-white '}`} />
                             </li>
                         ))}
                     </div>
