@@ -1,13 +1,9 @@
-export interface TicketScanErrorResponse {
+export interface TicketScanResponse {
     success: boolean;
     error: string;
+    data?: TicketScanData;
     order_item_id?: string;
     ticket_scanned_at?: string;
-}
-
-export interface TicketScanSuccessResponse {
-    success: boolean;
-    data: TicketScanData;
 }
 
 export interface TicketScanData {
@@ -77,5 +73,3 @@ interface Order {
     payment_method_title: string;
     order_note: string;
 }
-
-export type TicketScanResponse = TicketScanErrorResponse | TicketScanSuccessResponse;

@@ -1,3 +1,4 @@
+import { getUserDetails, verifyUser } from "@/actions/authActions";
 import { NextAuthConfig, DefaultSession } from "next-auth";
 import CredentialsProvider from "next-auth/providers/credentials";
 
@@ -7,29 +8,11 @@ declare module "next-auth" {
             id: string;
             first_name: string;
             last_name: string;
+            username: string;
             roles: string[];
         } & DefaultSession["user"];
     }
 }
-
-const API_URL = process.env.HEADLESS_CMS_API_URL;
-
-const verifyUser = async (credentials: { email: string; password: string }) => {
-    let url = `${API_URL}/wp-json/ticket_scanner/v1/verify_user`
-    let response = await fetch(url, {
-        method: "POST",
-        headers: {
-            "Content-Type": "application/json",
-        },
-        body: JSON.stringify(credentials),
-    });
-
-    if (response.ok) {
-        return JSON.parse(await response.json());
-    }
-
-    return null;
-};
 
 export const options: NextAuthConfig = {
     session: { strategy: "jwt" },
@@ -58,6 +41,13 @@ export const options: NextAuthConfig = {
         session: async ({ session, token }) => {
             if (session.user && token?.sub) {
                 session.user.id = token?.sub;
+                const data = await getUserDetails(token.sub);
+                if (data) {
+                    session.user.first_name = data.user.first_name;
+                    session.user.last_name = data.user.last_name;
+                    session.user.username = data.user.username;
+                    session.user.roles = data.user.roles;
+                }
             }
 
             return session;
@@ -65,5 +55,8 @@ export const options: NextAuthConfig = {
         jwt: async ({ token }) => {
             return token;
         },
-    }
+    },
+    pages: {
+        // TODO: Add custom auth pages
+    },
 };

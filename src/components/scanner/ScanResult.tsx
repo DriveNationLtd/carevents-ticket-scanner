@@ -1,8 +1,9 @@
+import { TicketScanResponse } from '@/types/event';
 import React from 'react'
 
 interface ScanResultProps {
-    result: string | null;
-    callback: (result: string | null) => void;
+    result: TicketScanResponse | null;
+    callback: (result: null) => void;
 }
 
 export const ScanResult: React.FC<ScanResultProps> = ({
@@ -19,13 +20,7 @@ export const ScanResult: React.FC<ScanResultProps> = ({
 
     return (
         <div className="flex flex-col max-w-lg mx-auto">
-            <p className="text-white text-xl">{result}</p>
-            <button
-                onClick={() => callback(null)}
-                className="bg-red-500 text-white px-4 py-2 rounded-md ml-2"
-            >
-                Scan Again
-            </button>
+            <p className="text-white text-xl">{JSON.stringify(result?.data)}</p>
         </div>
     );
 }

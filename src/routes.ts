@@ -4,7 +4,7 @@
  * @type {string[]}
  */
 export const publicRoutes = [
-    "/",
+    "/about",
 ];
 
 /**
@@ -17,7 +17,7 @@ export const authRoutes = [
     "/auth/register",
     "/auth/error",
     "/auth/reset",
-    "/auth/new-password"
+    "/api/auth/signin",
 ];
 
 /**

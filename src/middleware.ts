@@ -10,21 +10,24 @@ import {
 // @ts-ignore
 export default auth((req) => {
     const { nextUrl } = req;
-    
+
     const isLoggedIn = !!req.auth;
 
     const isApiAuthRoute = nextUrl.pathname.startsWith(apiAuthPrefix);
     const isPublicRoute = publicRoutes.includes(nextUrl.pathname);
     const isAuthRoute = authRoutes.includes(nextUrl.pathname);
 
-    if (isApiAuthRoute) {
-        return null;
-    }
+    console.log(`Route: ${nextUrl.pathname}, isLoggedIn: ${isLoggedIn}`);
 
     if (isAuthRoute) {
         if (isLoggedIn) {
+            console.log(`Redirecting to ${DEFAULT_LOGIN_REDIRECT}`);
             return Response.redirect(new URL(DEFAULT_LOGIN_REDIRECT, nextUrl))
         }
+        return null;
+    }
+
+    if (isApiAuthRoute) {
         return null;
     }
 
@@ -37,7 +40,7 @@ export default auth((req) => {
         const encodedCallbackUrl = encodeURIComponent(callbackUrl);
 
         return Response.redirect(new URL(
-            `/auth/login?callbackUrl=${encodedCallbackUrl}`,
+            `${apiAuthPrefix}/signin?callbackUrl=${encodedCallbackUrl}`,
             nextUrl
         ));
     }
