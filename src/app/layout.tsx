@@ -29,7 +29,6 @@ export default function RootLayout({
         <NextTopLoader
           color="#b89855"
           showSpinner={false}
-          showAtBottom={true}
         />
         <Header />
         {children}

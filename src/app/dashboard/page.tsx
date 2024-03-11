@@ -12,24 +12,23 @@ const Dashboard: React.FC = async () => {
             <div className="flex justify-center items-center my-5">
                 <div className="bg-white p-6 rounded-lg shadow-md">
                     <div className="mb-4 flex justify-between items-center">
-                        <p className="text-gray-600 w-32">First Name</p>
-                        <p className="text-gray-600">{user?.first_name}</p>
+                        <p className="text-gray-600 w-32 font-bold">First Name</p>
+                        <p className="text-gray-600 text-sm">{user?.first_name}</p>
                     </div>
                     <div className="mb-4 flex justify-between items-center">
-                        <p className="text-gray-600 w-32">Last Name</p>
-                        <p className="text-gray-600">{user?.last_name}</p>
+                        <p className="text-gray-600 w-32 font-bold">Last Name</p>
+                        <p className="text-gray-600 text-sm">{user?.last_name}</p>
                     </div>
                     <div className="mb-4 flex justify-between items-center">
-                        <p className="text-gray-600 w-32">Email</p>
-                        <p className="text-gray-600">{user?.email}</p>
+                        <p className="text-gray-600 w-32 font-bold">Email</p>
+                        <p className="text-gray-600 text-sm">{user?.email}</p>
                     </div>
-                    <div className="mb-4">
-                        <p className="text-gray-600">Roles</p>
-                        <ul className="list-disc ml-6">
-                            {user?.roles?.map((role, index) => (
-                                <li key={index} className="text-gray-600">{role}</li>
-                            ))}
-                        </ul>
+                    <div className="mb-4 flex justify-between items-center">
+                        <p className="text-gray-600 font-bold">Roles</p>
+                        {/*  badges */}
+                        {user?.roles.map((role, index) => (
+                            <span key={index} className="bg-gray-100 text-gray-600 px-2 py-1 rounded-full text-xs">{role}</span>
+                        ))}
                     </div>
                 </div>
             </div>
