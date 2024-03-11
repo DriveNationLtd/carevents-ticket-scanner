@@ -41,7 +41,7 @@ export const getUserDetails = async (id: string) => {
 
 export const handleSignOut = async () => {
     await signOut({
-        redirectTo: `${apiAuthPrefix}/signin`,
-        redirect: true,
+        // redirectTo: `${apiAuthPrefix}/signin`,
+        // redirect: true,
     })
 }
