@@ -12,7 +12,7 @@ export interface TicketScanData {
     ticket_id: string;
     order_item_id: string;
     ticket: Ticket;
-    order: Order;
+    ticket_data: Order;
 }
 
 interface Ticket {
@@ -72,6 +72,10 @@ interface Order {
     payment_method: string;
     payment_method_title: string;
     order_note: string;
+    car_make: string | null;
+    car_model: string | null;
+    car_reg: string | null;
+    concours: string | null;
 }
 
 export interface Event {
@@ -83,12 +87,17 @@ export interface Event {
     status: string;
     image: string;
 }
-
-
 export interface EventsResponse {
     success: boolean;
     error?: string;
     events?: Event[];
     user_id?: string;
     count?: number;
+}
+
+export interface TicketRedeemResponse {
+    success: boolean;
+    error?: string;
+    ticket_scanned_at?: string;
+    order_item_id?: string;
 }

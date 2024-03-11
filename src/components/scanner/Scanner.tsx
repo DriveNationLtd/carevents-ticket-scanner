@@ -11,6 +11,7 @@ import { Html5QrcodeError } from 'html5-qrcode/esm/core';
 import { ScanResult } from './ScanResult';
 import { TicketScanResponse } from '@/types/event';
 import { Html5QRScanner } from './Html5QRScanner';
+import Modal from '@/shared/Modal';
 
 interface QRScannerProps {
 }
@@ -30,11 +31,16 @@ const QRScanner: React.FC<QRScannerProps> = ({ }) => {
 
     return (
         <div className='w-full h-full flex flex-col justify-center items-center'>
-            <Html5QRScanner
-                onScanSuccess={onScanSuccess}
-                handleError={handleError}
-            />
-            {result && <ScanResult result={result} callback={setResult} />}
+            {!result && (
+                <Html5QRScanner
+                    onScanSuccess={onScanSuccess}
+                    handleError={handleError}
+                    startScanning={true}
+                />
+            )}
+            <Modal isOpen={result ? true : false} onClose={() => setResult(null)}>
+                <ScanResult result={result} callback={setResult} />
+            </Modal>
         </div>
     );
 };

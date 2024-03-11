@@ -1,3 +1,4 @@
+import { ThemeBtn } from '@/shared/ThemeBtn';
 import { CameraDevice, Html5Qrcode } from 'html5-qrcode';
 import { Html5QrcodeError } from 'html5-qrcode/esm/core';
 import { Html5QrcodeScannerConfig } from 'html5-qrcode/esm/html5-qrcode-scanner';
@@ -6,6 +7,7 @@ import { useEffect, useRef, useState } from 'react'
 interface Html5QRScannerProps {
     onScanSuccess: (decodedText: string) => void;
     handleError?: (errorMessage: string, error: Html5QrcodeError) => void;
+    startScanning?: boolean;
 }
 
 const qrcodeRegionId = "reader";
@@ -42,7 +44,8 @@ const createConfig = (props?: Html5QrcodeScannerConfig): Html5QrcodeScannerConfi
 
 export const Html5QRScanner: React.FC<Html5QRScannerProps> = ({
     onScanSuccess,
-    handleError
+    handleError,
+    startScanning = false
 }) => {
     const fileRef = useRef<HTMLInputElement>(null);
 
@@ -55,28 +58,36 @@ export const Html5QRScanner: React.FC<Html5QRScannerProps> = ({
         getCameras();
         const oldRegion = document.getElementById("qr-shaded-region");
         oldRegion && oldRegion.remove();
+
+        // if (startScanning && !isScanning) {
+        //     handleClickAdvanced();
+        // }
     }, []);
 
     const handleClickAdvanced = () => {
-        const config = createConfig();
-        setIsScanning(true);
+        try {
+            const config = createConfig();
+            setIsScanning(true);
 
-        const qrCodeSuccessCallback = (decodedText: string) => {
-            onScanSuccess(decodedText);
-            console.log(`QR Code detected: ${decodedText}`);
-            handleStop();
-        };
+            const qrCodeSuccessCallback = (decodedText: string) => {
+                onScanSuccess(decodedText);
+                console.log(`QR Code detected: ${decodedText}`);
+                handleStop();
+            };
 
-        html5QrCode.start(
-            { facingMode: "environment" },
-            // @ts-ignore
-            config,
-            qrCodeSuccessCallback,
-            handleError
-        ).then(() => {
-            // const oldRegion = document.getElementById("qr-shaded-region");
-            // if (oldRegion) oldRegion.innerHTML = "";
-        });
+            html5QrCode.start(
+                { facingMode: "environment" },
+                // @ts-ignore
+                config,
+                qrCodeSuccessCallback,
+                handleError
+            ).then(() => {
+                // const oldRegion = document.getElementById("qr-shaded-region");
+                // if (oldRegion) oldRegion.innerHTML = "";
+            });
+        } catch (err) {
+            console.error(err);
+        }
     };
 
     const getCameras = () => {
@@ -154,17 +165,21 @@ export const Html5QRScanner: React.FC<Html5QRScannerProps> = ({
     };
 
     return (
-        <div className="container">
+        <div className="container max-w-md">
             <div id={qrcodeRegionId}></div>
 
             <div className="flex flex-col justify-center">
                 {!isScanning ? (
-                    <button onClick={handleClickAdvanced}>Start Scanning</button>
+                    <ThemeBtn onClick={handleClickAdvanced}>Start Scanning</ThemeBtn>
                 ) :
-                    <>
-                        <button onClick={handleStop}>Stop Scanning</button>
-                        <button onClick={scanLocalFile}>Scan File</button>
-                    </>
+                    <div className='flex justify-between px-3 py-4'>
+                        <ThemeBtn onClick={handleStop}>
+                            Stop Scanning
+                        </ThemeBtn>
+                        <ThemeBtn onClick={scanLocalFile}>
+                            Scan File
+                        </ThemeBtn>
+                    </div>
                 }
                 <input
                     type="file"

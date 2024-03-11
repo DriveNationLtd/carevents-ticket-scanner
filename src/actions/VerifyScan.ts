@@ -1,7 +1,7 @@
 "use server"
 
 import { auth } from "@/auth";
-import { EventsResponse, TicketScanResponse } from "@/types/event";
+import { EventsResponse, TicketRedeemResponse, TicketScanResponse } from "@/types/event";
 
 const API_URL = process.env.HEADLESS_CMS_API_URL;
 
@@ -71,8 +71,9 @@ export const verifyScan = async (scannedData: string | null): Promise<TicketScan
     }
 }
 
-export const redeemTicket = async (ticket_id: string) => {
+export const redeemTicket = async (ticket_id: string): Promise<TicketRedeemResponse> => {
     let url = `${API_URL}/wp-json/ticket_scanner/v1/redeem_ticket`;
+
 
     try {
         const user = await getSessionUser();
@@ -83,17 +84,17 @@ export const redeemTicket = async (ticket_id: string) => {
                 "Content-Type": "application/json",
             },
             body: JSON.stringify({
-                // @ts-ignore
                 user_id: user?.id,
                 order_item_id: ticket_id,
             }),
         });
 
         const data = JSON.parse(await response.json());
-        console.log(data);
-
         return data;
-    } catch (error) {
-        return { error: "Internal Server Error" };
+    } catch (error: any) {
+        return {
+            success: false,
+            error: error.message ?? "Internal Server Error",
+        }
     }
 }
