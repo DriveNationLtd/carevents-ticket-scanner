@@ -42,7 +42,7 @@ const QRScanner: React.FC<QRScannerProps> = ({ }) => {
                     startScanning={true}
                 />
             )}
-            <Modal isOpen={result ? true : false} onClose={() => setResult(null)}>
+            <Modal isOpen={result ? true : false} onClose={() => setResult(null)} title='Results'>
                 <ScanResult result={result} callback={setResult} />
             </Modal>
         </div>

@@ -7,13 +7,15 @@ interface ModalProps {
     onClose: () => void;
     title?: string;
     children: React.ReactNode;
+    actions?: React.ReactNode;
 }
 
 const Modal: React.FC<ModalProps> = ({
     children,
     isOpen,
     onClose,
-    title
+    title,
+    actions
 }) => {
     function closeModal() {
         onClose();
@@ -27,7 +29,7 @@ const Modal: React.FC<ModalProps> = ({
                 onClose={closeModal}
             >
                 <Dialog.Overlay className="fixed inset-0 bg-black/50" />
-                <div className="relative max-w-md w-full bg-transparent rounded-2xl shadow-xl transition-all">
+                <div className="relative max-w-md w-full bg-theme-dark rounded-2xl shadow-xl transition-all">
                     <Transition.Child
                         as={Fragment}
                         enter="ease-out duration-300"
@@ -41,12 +43,17 @@ const Modal: React.FC<ModalProps> = ({
                             {title && (
                                 <Dialog.Title
                                     as="h3"
-                                    className="text-lg font-medium leading-6 text-gray-900"
+                                    className="text-lg text-center font-medium leading-6 text-white py-2"
                                 >
                                     {title}
                                 </Dialog.Title>
                             )}
                             {children}
+                            {actions && (
+                                <div className="flex justify-end p-2">
+                                    {actions}
+                                </div>
+                            )}
                         </Dialog.Panel>
                     </Transition.Child>
                 </div>

@@ -25,6 +25,8 @@ export default function RootLayout({
   return (
     <html lang="en">
       <link rel="manifest" href="/manifest.json" crossOrigin="use-credentials"></link>
+      <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" />
+
       <body className={`min-h-screen ${poppins.className}`} suppressHydrationWarning={true}>
         <NextTopLoader
           color="#b89855"
