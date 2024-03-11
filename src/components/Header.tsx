@@ -1,11 +1,11 @@
 'use client'
-import { signOut } from "@/auth";
-import { SignOutBtn } from "@/shared/SignOutBtn";
-import Image from "next/image";
-import Link from "next/link";
+
 import { usePathname } from "next/navigation";
 import { useState } from 'react';
-import TransitionLink from "./TransistionLink";
+import Link from "next/link";
+import Image from "next/image";
+
+import { SignOutBtn } from "@/shared/SignOutBtn";
 
 const navLinks = [
     { href: '/', label: 'Home' },
@@ -28,7 +28,7 @@ export const Header: React.FC = () => {
     };
 
     return (
-        <div className="bg-theme-dark h-16 w-full flex justify-between items-center px-4 mb-5">
+        <div className="bg-theme-dark h-16 w-full flex justify-between items-center px-4 mb-5 z-50">
             <div className="text-white text-xl">
                 <button className="relative group" onClick={toggleMenu}>
                     <div className="relative flex items-center justify-center rounded-full w-[50px] h-[50px] transform transition-all bg-theme-dark ring-0 ring-opacity-0 duration-200 shadow-md">
@@ -40,13 +40,17 @@ export const Header: React.FC = () => {
                     </div>
                 </button>
             </div>
-            <Image src="/logo.png" alt="CarEvents.com" width={100} height={100} className="max-w-16" />
-            <div className={`absolute top-16 left-0 bg-theme-dark w-1/2 h-[calc(100vh-4rem)] p-4 z-10 transition-all duration-300 ${isMenuOpen ? 'translate-x-0 pointer-events-auto' : '-translate-x-[100%] pointer-events-none'}`}>
+            <Link href="/">
+                <Image src="/logo.png" alt="CarEvents.com" width={100} height={100} className="max-w-16" />
+            </Link>
+            <div className={`absolute top-16 left-0 bg-theme-dark w-full h-[calc(100vh-4rem)] p-4 z-10 transition-all duration-300 ${isMenuOpen ? 'translate-x-0 pointer-events-auto' : '-translate-x-[100%] pointer-events-none'}`}>
                 <ul className="flex flex-col h-full justify-between">
                     <div className="top-nav flex flex-col gap-4">
                         {navLinks.map((link, index) => (
                             <li key={index} onClick={closeMenu}>
-                                <TransitionLink href={link.href} label={link.label} className={`${pathname === link.href ? 'text-white/60' : 'text-white '}`} />
+                                <Link href={link.href} className={`${pathname === link.href ? 'text-white/60' : 'text-white '}`}>
+                                    {link.label}
+                                </Link>
                             </li>
                         ))}
                     </div>

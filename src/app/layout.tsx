@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import "./globals.css";
 import { Header } from "@/components/Header";
+import NextTopLoader from 'nextjs-toploader';
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -24,6 +25,10 @@ export default function RootLayout({
     <html lang="en">
       <link rel="manifest" href="/manifest.json" crossOrigin="use-credentials"></link>
       <body className={`min-h-screen ${inter.className}`} suppressHydrationWarning={true}>
+        <NextTopLoader
+          color="#b89855"
+          showSpinner={false}
+        />
         <Header />
         {children}
       </body>
