@@ -27,7 +27,7 @@ const Modal: React.FC<ModalProps> = ({
                 onClose={closeModal}
             >
                 <Dialog.Overlay className="fixed inset-0 bg-black/50" />
-                <div className="relative max-w-md w-full bg-white rounded-2xl shadow-xl transition-all">
+                <div className="relative max-w-md w-full bg-transparent rounded-2xl shadow-xl transition-all">
                     <Transition.Child
                         as={Fragment}
                         enter="ease-out duration-300"
