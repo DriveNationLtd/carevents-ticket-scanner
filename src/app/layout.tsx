@@ -1,10 +1,11 @@
 import type { Metadata } from "next";
-import { Inter } from "next/font/google";
+import { Inter, Poppins } from "next/font/google";
 import "./globals.css";
 import { Header } from "@/components/Header";
 import NextTopLoader from 'nextjs-toploader';
 
 const inter = Inter({ subsets: ["latin"] });
+const poppins = Poppins({ subsets: ["latin"], weight: ["400", "500", "600"] });
 
 export const metadata: Metadata = {
   title: "CE Ticket Scanner",
@@ -24,10 +25,11 @@ export default function RootLayout({
   return (
     <html lang="en">
       <link rel="manifest" href="/manifest.json" crossOrigin="use-credentials"></link>
-      <body className={`min-h-screen ${inter.className}`} suppressHydrationWarning={true}>
+      <body className={`min-h-screen ${poppins.className}`} suppressHydrationWarning={true}>
         <NextTopLoader
           color="#b89855"
           showSpinner={false}
+          showAtBottom={true}
         />
         <Header />
         {children}
