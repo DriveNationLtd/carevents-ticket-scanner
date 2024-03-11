@@ -1,7 +1,7 @@
 "use server"
 
 import { auth } from "@/auth";
-import { TicketScanResponse } from "@/types/event";
+import { EventsResponse, TicketScanResponse } from "@/types/event";
 
 const API_URL = process.env.HEADLESS_CMS_API_URL;
 
@@ -15,7 +15,7 @@ const getSessionUser = async () => {
     return session.user;
 }
 
-export const getEvents = async () => {
+export const getEvents = async (): Promise<EventsResponse> => {
 
     let url = `${API_URL}/wp-json/ticket_scanner/v1/get_user_events`;
 
@@ -35,7 +35,10 @@ export const getEvents = async () => {
         const data = JSON.parse(await response.json());
         return data;
     } catch (error: any) {
-        return { error: error.message };
+        return {
+            success: false,
+            error: error.message ?? "Internal Server Error",
+        }
     }
 }
 

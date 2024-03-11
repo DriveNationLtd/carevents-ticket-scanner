@@ -4,10 +4,13 @@ import withPWAInit from "next-pwa"
 
 const nextConfig = {
     reactStrictMode: true,
-};
+    images: {
+        domains: ['wordpress-889362-4267074.cloudwaysapps.com', 'www.carevents.com'],
+    },
+}
 
 const withPWA = withPWAInit({
     dest: "public",
-});
+})
 
-export default withPWA(nextConfig);
+export default withPWA(nextConfig)

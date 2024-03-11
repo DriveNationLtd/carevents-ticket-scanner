@@ -73,3 +73,22 @@ interface Order {
     payment_method_title: string;
     order_note: string;
 }
+
+export interface Event {
+    id: string;
+    ticket_type: string;
+    title: string;
+    start_date: string;
+    end_date: string;
+    status: string;
+    image: string;
+}
+
+
+export interface EventsResponse {
+    success: boolean;
+    error?: string;
+    events?: Event[];
+    user_id?: string;
+    count?: number;
+}
