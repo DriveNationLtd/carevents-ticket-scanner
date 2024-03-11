@@ -12,16 +12,19 @@ import { ScanResult } from './ScanResult';
 import { TicketScanResponse } from '@/types/event';
 import { Html5QRScanner } from './Html5QRScanner';
 import Modal from '@/shared/Modal';
+import Loader from '@/shared/Loader';
 
 interface QRScannerProps {
 }
 
 const QRScanner: React.FC<QRScannerProps> = ({ }) => {
     const [result, setResult] = useState<TicketScanResponse | null>(null);
+    const [loading, setLoading] = useState<boolean>(false);
 
     const onScanSuccess = async (decodedText: string) => {
+        setLoading(true);
         const response = await verifyScan(decodedText);
-        console.log(response);
+        setLoading(false);
         setResult(response);
     };
 
@@ -31,6 +34,7 @@ const QRScanner: React.FC<QRScannerProps> = ({ }) => {
 
     return (
         <div className='w-full h-full flex flex-col justify-center items-center'>
+            {loading && <Loader />}
             {!result && (
                 <Html5QRScanner
                     onScanSuccess={onScanSuccess}
