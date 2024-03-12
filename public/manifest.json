@@ -1,7 +1,7 @@
 {
     "name": "CarEvents.com Ticket Scanner",
     "short_name": "CE Ticket Scanner",
-    "theme_color": "#b89855",
+    "theme_color": "#000000",
     "background_color": "#000000",
     "display": "standalone",
     "orientation": "portrait",
