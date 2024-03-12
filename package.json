@@ -18,7 +18,8 @@
     "nextjs-progressbar": "^0.0.16",
     "nextjs-toploader": "^1.6.6",
     "react": "^18",
-    "react-dom": "^18"
+    "react-dom": "^18",
+    "sharp": "^0.33.2"
   },
   "devDependencies": {
     "@types/node": "^20",

@@ -28,7 +28,9 @@ const Modal: React.FC<ModalProps> = ({
                 className="fixed inset-0 flex items-center justify-center z-50"
                 onClose={closeModal}
             >
-                <Dialog.Overlay className="fixed inset-0 bg-black/50" />
+                {/* <Dialog.Overlay className="fixed inset-0 bg-black/50" /> */}
+                {/* make overlay a glass blur */}
+                <Dialog.Overlay className="fixed inset-0 bg-theme-dark/50 backdrop-blur-lg" />
                 <div className="relative max-w-md w-full bg-theme-dark rounded-2xl shadow-xl transition-all">
                     <Transition.Child
                         as={Fragment}

@@ -1,8 +1,9 @@
-import type { Metadata } from "next";
+import type { Metadata, Viewport } from "next";
 import { Inter, Poppins } from "next/font/google";
 import "./globals.css";
 import { Header } from "@/components/Header";
 import NextTopLoader from 'nextjs-toploader';
+import Script from "next/script";
 
 const inter = Inter({ subsets: ["latin"] });
 const poppins = Poppins({ subsets: ["latin"], weight: ["400", "500", "600"] });
@@ -14,8 +15,11 @@ export const metadata: Metadata = {
     name: "Keshanth Jude"
   }],
   // manifest: "/manifest.json",
-  themeColor: "#b89855",
 };
+
+export const viewport: Viewport = {
+  themeColor: "#b89855",
+}
 
 export default function RootLayout({
   children,
@@ -25,7 +29,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <link rel="manifest" href="/manifest.json" crossOrigin="use-credentials"></link>
-      <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" />
+      {/* <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css"></link> */}
 
       <body className={`min-h-screen ${poppins.className}`} suppressHydrationWarning={true}>
         <NextTopLoader
@@ -34,6 +38,7 @@ export default function RootLayout({
         />
         <Header />
         {children}
+        {/* <script src="/sw.js" id="service-worker" async></script> */}
       </body>
     </html>
   );

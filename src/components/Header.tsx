@@ -11,7 +11,7 @@ const navLinks = [
     { href: '/', label: 'Home' },
     { href: '/dashboard', label: 'Dashboard' },
     { href: '/about', label: 'About' },
-    { href: '/events', label: 'Events' },
+    // { href: '/events', label: 'Events' },
 ];
 
 export const Header: React.FC = () => {
