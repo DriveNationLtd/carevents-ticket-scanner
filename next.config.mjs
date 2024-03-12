@@ -12,7 +12,7 @@ const nextConfig = {
 const withPWA = withPWAInit({
     dest: "public",
     register: true,
-    swSrc: "service-worker.js",
+    swSrc: "/service-worker.js",
 })
 
 export default withPWA(nextConfig)

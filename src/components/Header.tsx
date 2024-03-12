@@ -6,6 +6,7 @@ import Link from "next/link";
 import Image from "next/image";
 
 import { SignOutBtn } from "@/shared/SignOutBtn";
+import useServiceWorker from "@/hooks/useSW";
 
 const navLinks = [
     { href: '/', label: 'Home' },
@@ -15,6 +16,8 @@ const navLinks = [
 ];
 
 export const Header: React.FC = () => {
+    useServiceWorker();
+
     const pathname = usePathname();
 
     const [isMenuOpen, setIsMenuOpen] = useState(false);

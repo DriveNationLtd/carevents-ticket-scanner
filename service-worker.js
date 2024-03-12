@@ -6,22 +6,20 @@ import { matchPrecache, precacheAndRoute, cleanupOutdatedCaches } from 'workbox-
 
 skipWaiting()
 clientsClaim()
-console.log('Installing service worker');
+
+console.log('Installing service worker')
 
 // must include following lines when using inject manifest module from workbox
 // https://developers.google.com/web/tools/workbox/guides/precache-files/workbox-build#add_an_injection_point
 const WB_MANIFEST = self.__WB_MANIFEST
 self.__WB_DISABLE_DEV_LOGS = true
-// Precache fallback route and image
-WB_MANIFEST.push(
-    {
-        url: '/fallback',
-        revision: '1234567890'
-    }
-)
-precacheAndRoute(WB_MANIFEST)
 
+// Precache fallback route and image
+WB_MANIFEST.push({ url: '/fallback', revision: '1234567890' })
+
+precacheAndRoute(WB_MANIFEST)
 cleanupOutdatedCaches()
+
 registerRoute(
     '/',
     new NetworkFirst({
@@ -30,6 +28,7 @@ registerRoute(
     }),
     'GET'
 )
+
 registerRoute(
     /^https:\/\/fonts\.(?:googleapis|gstatic)\.com\/.*/i,
     new CacheFirst({
@@ -132,7 +131,7 @@ setCatchHandler(async ({ event }) => {
         //return caches.match('/static/fonts/fallback.otf')
         //break
         default:
-            console.log('This is the fallback for all other requests', event.request.url);
-            return matchPrecache('/fallback')
+            console.log('This is the fallback for all other requests', event.request.url)
+        // return matchPrecache('/fallback')
     }
 })
