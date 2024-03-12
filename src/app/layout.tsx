@@ -3,7 +3,6 @@ import { Inter, Poppins } from "next/font/google";
 import "./globals.css";
 import { Header } from "@/components/Header";
 import NextTopLoader from 'nextjs-toploader';
-import Script from "next/script";
 
 const inter = Inter({ subsets: ["latin"] });
 const poppins = Poppins({ subsets: ["latin"], weight: ["400", "500", "600"] });
@@ -38,7 +37,7 @@ export default function RootLayout({
         />
         <Header />
         {children}
-        {/* <script src="/sw.js" id="service-worker" async></script> */}
+        {/* <Script src="/sw.js" id="service-worker" strategy="beforeInteractive" /> */}
       </body>
     </html>
   );

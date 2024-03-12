@@ -11,11 +11,8 @@ const nextConfig = {
 
 const withPWA = withPWAInit({
     dest: "public",
+    register: true,
     swSrc: "service-worker.js",
-    fallbacks: {
-        document: "/fallback",
-    }
-    // sw: "service-worker.js",
 })
 
 export default withPWA(nextConfig)
