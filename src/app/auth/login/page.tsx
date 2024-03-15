@@ -1,12 +1,19 @@
 'use client'
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Image from "next/image"
 
 import { Button } from "@/shared/Button";
 import { handleSignIn } from "@/actions/authActions";
+import { ErrorMessage } from "@/shared/ErrorMessage";
 
 const Login = () => {
     const [error, setError] = useState("");
+
+    useEffect(() => {
+        setTimeout(() => {
+            setError("");
+        }, 3000);
+    }, [error]);
 
     const handleSubmit = async (formData: FormData) => {
         try {
@@ -29,8 +36,8 @@ const Login = () => {
                 const response = await handleSignIn(rawFormData)
                 console.log(response);
             }
-        } catch (error) {
-            console.error(error);
+        } catch (error: any) {
+            setError("Invalid credentials");
         }
     }
 
@@ -49,7 +56,7 @@ const Login = () => {
                         placeholder="Email Address"
                     />
                 </div>
-                <div className="mb-6">
+                <div className="">
                     <input
                         className="appearance-none rounded w-full p-3 text-white bg-theme-dark-100 mb-3 leading-tight focus:outline-none focus:shadow-outline"
                         id="password"
@@ -59,7 +66,8 @@ const Login = () => {
                         placeholder="Password"
                     />
                 </div>
-                <div className="flex items-center justify-between">
+                <div className="flex flex-col items-center justify-center">
+                    {error && <ErrorMessage message={error} />}
                     <Button type="submit" icon={<i className="ml-2 fas fa-chevron-right"></i>}>
                         Login
                     </Button>

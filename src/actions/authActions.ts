@@ -2,6 +2,7 @@
 
 import { signIn, signOut } from "@/auth"
 import { apiAuthPrefix } from "@/routes"
+import { AuthError } from "next-auth";
 
 const API_URL = process.env.HEADLESS_CMS_API_URL;
 
