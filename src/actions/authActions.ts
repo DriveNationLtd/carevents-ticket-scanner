@@ -1,6 +1,6 @@
 "use server"
 
-import { signOut } from "@/auth"
+import { signIn, signOut } from "@/auth"
 import { apiAuthPrefix } from "@/routes"
 
 const API_URL = process.env.HEADLESS_CMS_API_URL;
@@ -44,4 +44,12 @@ export const handleSignOut = async () => {
         // redirectTo: `${apiAuthPrefix}/signin`,
         // redirect: true,
     })
+}
+
+export const handleSignIn = async (credentials: {
+    email: string | undefined;
+    password: string | undefined;
+}) => {
+    const response = await signIn("credentials", credentials);
+    return response;
 }

@@ -9,7 +9,7 @@ export const EventScanProgressSkeleton: React.FC = () => {
     return (
         <div className="flex flex-col bg-theme-dark">
             {[1, 2, 3].map((index) => (
-                <div key={index} className="flex justify-between border-t p-5 shadow animate-pulse">
+                <div key={index} className="flex justify-between border-t p-4 shadow animate-pulse">
                     <span className="bg-white/70 h-2 rounded w-36"></span>
                     <span className="bg-white/70 h-2 rounded w-12"></span>
                 </div>
@@ -43,9 +43,9 @@ export const EventScanProgress: React.FC<EventScanProgressProps> = async ({ even
     return (
         <div className="flex flex-col bg-theme-dark">
             {Object.entries(progress).map(([ticketId, ticketInfo]) => (
-                <div key={ticketId} className="flex justify-between border-t p-5">
-                    <span className="text-white/70 text-sm font-medium">{ticketInfo.name}</span>
-                    <span className="text-white/70 text-sm">
+                <div key={ticketId} className="flex justify-between border-t p-4">
+                    <span className="text-white/70 text-xs font-medium">{ticketInfo.name}</span>
+                    <span className="text-white/70 text-xs">
                         <span className={clsx(
                             ticketInfo.scanned === ticketInfo.sold ? "text-green-500" : ""
                         )}>

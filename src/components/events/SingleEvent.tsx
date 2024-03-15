@@ -35,7 +35,7 @@ export const SingleEvent: React.FC<SingleEventProps> = async ({ event_id }) => {
 
     return (
         <div className="flex flex-col h-full">
-            <div className="relative flex flex-col items-center gap-3 w-full min-h-52 justify-center rounded-md mb-2 bg-theme-dark border-none bg-opacity-90 overflow-hidden cursor-pointer">
+            <div className="relative flex flex-col items-center gap-3 w-full min-h-52 justify-center mb-2 bg-theme-dark border-none bg-opacity-90 overflow-hidden cursor-pointer">
                 <div className="flex flex-col justify-center flex-grow p-4 w-full">
                     <div className='flex items-center justify-center flex-col'>
                         <h2 className="font-bold mb-2 text-md">{title}</h2>
@@ -53,7 +53,7 @@ export const SingleEvent: React.FC<SingleEventProps> = async ({ event_id }) => {
                                 </div>
 
                                 {/* progress meter */}
-                                <div className="w-full h-4 mt-4 bg-gray-700 rounded-full overflow-hidden">
+                                <div className="w-full h-4 mt-4 bg-gray-200/40 rounded-full overflow-hidden">
                                     <div className="h-full bg-green-500 rounded-l-full" style={{ width: `${(orders.scanned / orders.total) * 100}%` }}></div>
                                 </div>
                             </div>

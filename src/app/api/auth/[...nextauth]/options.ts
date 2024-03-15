@@ -59,5 +59,6 @@ export const options: NextAuthConfig = {
     },
     pages: {
         // TODO: Add custom auth pages
+        signIn: "/auth/login",
     },
 };

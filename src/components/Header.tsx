@@ -8,6 +8,7 @@ import Image from "next/image";
 import { SignOutBtn } from "@/shared/SignOutBtn";
 import useServiceWorker from "@/hooks/useSW";
 import { ConnectivityStatus } from "@/shared/ConnectivityStatus";
+import { useSession } from "next-auth/react";
 
 const navLinks = [
     { href: '/', label: 'Home' },

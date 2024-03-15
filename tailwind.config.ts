@@ -13,8 +13,13 @@ const config: Config = {
       },
       colors: {
         "theme-primary": "#b89855",
-        "theme-dark": "#0f0f0f"
+        "theme-primary-light": "#af9867e6",
+        "theme-dark": "#0f0f0f",
+        "theme-dark-100": "#474747",
       },
+      fontSize: {
+        "xxs": "0.5rem",
+      }
     },
   },
   plugins: [],
