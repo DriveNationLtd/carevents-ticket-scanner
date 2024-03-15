@@ -16,7 +16,7 @@ const getSessionUser = async () => {
 }
 
 export const getEvents = async (): Promise<EventsResponse> => {
-    let url = `${API_URL}/wp-json/ticket_scanner/v1/get_user_events`;
+    let url = `https://www.carevents.com/wp-json/ticket_scanner/v1/get_user_events`;
 
     try {
         const user = await getSessionUser();
@@ -42,7 +42,7 @@ export const getEvents = async (): Promise<EventsResponse> => {
 }
 
 export const getEventById = async (id: string): Promise<SingleEventResponse> => {
-    let url = `${API_URL}/wp-json/ticket_scanner/v1/get_user_event`;
+    let url = `https://www.carevents.com/wp-json/ticket_scanner/v1/get_user_event`;
 
     try {
         const user = await getSessionUser();
@@ -68,7 +68,7 @@ export const getEventById = async (id: string): Promise<SingleEventResponse> => 
 }
 
 export const getEventScanProgress = async (event_id: string): Promise<EventTicketProgressResponse> => {
-    let url = `${API_URL}/wp-json/ticket_scanner/v1/get_event_scan_progress`;
+    let url = `https://www.carevents.com/wp-json/ticket_scanner/v1/get_event_scan_progress`;
 
     try {
         const user = await getSessionUser();
@@ -95,7 +95,7 @@ export const getEventScanProgress = async (event_id: string): Promise<EventTicke
 
 
 export const verifyScan = async (scannedData: string | null): Promise<TicketScanResponse> => {
-    let url = `${API_URL}/wp-json/ticket_scanner/v1/verify_scanned_ticket`;
+    let url = `https://www.carevents.com/wp-json/ticket_scanner/v1/verify_scanned_ticket`;
 
     try {
         const user = await getSessionUser();
@@ -123,7 +123,7 @@ export const verifyScan = async (scannedData: string | null): Promise<TicketScan
 }
 
 export const redeemTicket = async (ticket_id: string): Promise<TicketRedeemResponse> => {
-    let url = `${API_URL}/wp-json/ticket_scanner/v1/redeem_ticket`;
+    let url = `https://www.carevents.com/wp-json/ticket_scanner/v1/redeem_ticket`;
 
 
     try {

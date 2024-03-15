@@ -7,7 +7,7 @@ import { cookies } from 'next/headers'
 const API_URL = "https://www.carevents.com";
 
 export const verifyUser = async (credentials: { email: string; password: string }) => {
-    let url = `${API_URL}/wp-json/ticket_scanner/v1/verify_user`
+    let url = `https://www.carevents.com/wp-json/ticket_scanner/v1/verify_user`
     let response = await fetch(url, {
         method: "POST",
         headers: {
@@ -24,7 +24,7 @@ export const verifyUser = async (credentials: { email: string; password: string 
 };
 
 export const getUserDetails = async (id: string) => {
-    let url = `${API_URL}/wp-json/ticket_scanner/v1/get_user_data`
+    let url = `https://www.carevents.com/wp-json/ticket_scanner/v1/get_user_data`
     let response = await fetch(url, {
         method: "POST",
         headers: {
