@@ -3,6 +3,7 @@ import { Poppins } from "next/font/google";
 import "./globals.css";
 import { Header } from "@/components/Header";
 import NextTopLoader from 'nextjs-toploader';
+import { Footer } from "@/components/Footer";
 
 const poppins = Poppins({ subsets: ["latin"], weight: ["400", "500", "600"] });
 
@@ -34,6 +35,8 @@ export default function RootLayout({
         />
         <Header />
         {children}
+        <div className="h-20"></div> {/* Spacer */}
+        <Footer />
       </body>
     </html>
   );
