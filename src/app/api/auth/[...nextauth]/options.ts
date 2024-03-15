@@ -16,7 +16,7 @@ declare module "next-auth" {
 
 export const options: NextAuthConfig = {
     session: { strategy: "jwt" },
-    // trustHost: true,
+    trustHost: true,
     providers: [
         CredentialsProvider({
             name: "Email",
