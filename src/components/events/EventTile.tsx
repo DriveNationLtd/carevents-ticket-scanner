@@ -21,10 +21,10 @@ export const EventTile: React.FC<EventTileProps> = ({ event }) => {
                 </div>
                 <div className="flex flex-col justify-between flex-grow mt-2">
                     <div className='flex items-start justify-start flex-col'>
-                        <h2 className="font-bold mb-2 text-md">{title}</h2>
+                        <h2 className="font-bold mb-2 text-md text-white">{title}</h2>
                         <p className="text-gray-300 text-xs">{formattedDate}</p>
                         {(orders && !orders.error) && (
-                        <div className="order-items-status text-xs mt-2">
+                        <div className="order-items-status text-xs mt-2 text-white">
                             Scanned: <span className='text-green-500'>{orders.scanned}</span>/<span>{orders.total}</span>
                         </div>
                         )}

@@ -1,8 +1,7 @@
 "use server"
 
 import { signIn, signOut } from "@/auth"
-import { apiAuthPrefix } from "@/routes"
-import { AuthError } from "next-auth";
+import { cookies } from 'next/headers'
 
 const API_URL = process.env.HEADLESS_CMS_API_URL;
 
@@ -41,9 +40,16 @@ export const getUserDetails = async (id: string) => {
 }
 
 export const handleSignOut = async () => {
+    // manually clear all cookies
+    const cookieStore = cookies()
+
+    cookieStore.getAll().map(cookie => {
+        cookieStore.delete(cookie.name)
+    })
+    
     await signOut({
         // redirectTo: `${apiAuthPrefix}/signin`,
-        // redirect: true,
+        redirect: true,
     })
 }
 

@@ -34,11 +34,11 @@ export const SingleEvent: React.FC<SingleEventProps> = async ({ event_id }) => {
     const formattedDate = formatDate(start_date);
 
     return (
-        <div className="flex flex-col h-full">
+        <div className="flex flex-col h-full bg-black">
             <div className="relative flex flex-col items-center gap-3 w-full min-h-52 justify-center mb-2 bg-theme-dark border-none bg-opacity-90 overflow-hidden cursor-pointer">
                 <div className="flex flex-col justify-center flex-grow p-4 w-full">
                     <div className='flex items-center justify-center flex-col'>
-                        <h2 className="font-bold mb-2 text-md">{title}</h2>
+                        <h2 className="font-bold mb-2 text-md text-white">{title}</h2>
                         <p className="text-gray-300 text-xs">
                             <i className="fas fa-calendar-alt mr-2"></i>
                             {formattedDate}
