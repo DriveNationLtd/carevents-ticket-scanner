@@ -8,7 +8,6 @@ import { ErrorMessage } from "@/shared/ErrorMessage";
 
 const Login = () => {
     const [error, setError] = useState("");
-    console.log("Login", process.env);
 
     useEffect(() => {
         setTimeout(() => {
