@@ -12,9 +12,8 @@ export const ThemeBtn: React.FC<ThemeBtnProps> = (props) => {
         <button
             {...props}
             className={clsx(
-                "bg-theme-dark hover:bg-theme-primary disabled:opacity-50 disabled:cursor-not-allowed",
-                loading ? "bg-theme-primary/70" : "",
-                "px-4 py-2 rounded-lg flex items-center transition-colors duration-200",
+                "bg-theme-dark disabled:opacity-50 disabled:cursor-not-allowed",
+                "px-4 py-2 rounded-lg flex items-center justify-center transition-colors duration-200",
                 className
             )}
             onClick={onClick}>

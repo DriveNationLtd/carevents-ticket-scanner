@@ -13,8 +13,7 @@ import { TicketScanResponse } from '@/types/event';
 import { Html5QRScanner } from './Html5QRScanner';
 import Modal from '@/shared/Modal';
 import Loader from '@/shared/Loader';
-import Link from 'next/link';
-import clsx from 'clsx';
+
 
 interface QRScannerProps {
 }
@@ -44,9 +43,9 @@ const QRScanner: React.FC<QRScannerProps> = ({ }) => {
                     startScanning={true}
                 />
             )}
-            <Modal isOpen={result ? true : false} onClose={() => setResult(null)} title='Results'>
-                <ScanResult result={result} callback={setResult} />
-            </Modal>
+            <ScanResult result={result} callback={setResult} />
+            {/* <Modal isOpen={result ? true : false} onClose={() => setResult(null)} title='Results'>
+            </Modal> */}
         </>
     );
 };

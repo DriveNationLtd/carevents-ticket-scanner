@@ -8,7 +8,11 @@ export interface TicketScanResponse {
 
 export interface TicketScanData {
     event_id: string;
-    event_name: string;
+    event: {
+        event_name: string;
+        event_venue: string;
+        event_date: string;
+    };
     ticket_id: string;
     order_item_id: string;
     ticket: Ticket;
