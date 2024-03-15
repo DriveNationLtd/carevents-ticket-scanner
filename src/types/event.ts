@@ -86,13 +86,41 @@ export interface Event {
     end_date: string;
     status: string;
     image: string;
+    orders?: {
+        total: number;
+        scanned: number;
+        error?: string;
+    }
 }
+
 export interface EventsResponse {
     success: boolean;
     error?: string;
     events?: Event[];
     user_id?: string;
     count?: number;
+}
+
+export interface SingleEventResponse {
+    success: boolean;
+    error?: string;
+    event?: Event;
+}
+
+interface TicketInfo {
+    sold: number;
+    scanned: number;
+    name?: string; // Assuming the "name" property is optional
+}
+
+interface TicketData {
+    [ticketId: string]: TicketInfo;
+}
+
+export interface EventTicketProgressResponse {
+    error?: string;
+    success?: boolean;
+    progress?: TicketData;
 }
 
 export interface TicketRedeemResponse {

@@ -1,7 +1,7 @@
 "use server"
 
 import { auth } from "@/auth";
-import { EventsResponse, TicketRedeemResponse, TicketScanResponse } from "@/types/event";
+import { EventTicketProgressResponse, EventsResponse, SingleEventResponse, TicketRedeemResponse, TicketScanResponse } from "@/types/event";
 
 const API_URL = process.env.HEADLESS_CMS_API_URL;
 
@@ -16,7 +16,6 @@ const getSessionUser = async () => {
 }
 
 export const getEvents = async (): Promise<EventsResponse> => {
-
     let url = `${API_URL}/wp-json/ticket_scanner/v1/get_user_events`;
 
     try {
@@ -33,6 +32,60 @@ export const getEvents = async (): Promise<EventsResponse> => {
         });
 
         const data = JSON.parse(await response.json());
+        return data;
+    } catch (error: any) {
+        return {
+            success: false,
+            error: error.message ?? "Internal Server Error",
+        }
+    }
+}
+
+export const getEventById = async (id: string): Promise<SingleEventResponse> => {
+    let url = `${API_URL}/wp-json/ticket_scanner/v1/get_user_event`;
+
+    try {
+        const user = await getSessionUser();
+        let response = await fetch(url, {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify({
+                user_id: user?.id,
+                event_id: id,
+            }),
+        });
+
+        const data = JSON.parse(await response.json());
+        return data;
+    } catch (error: any) {
+        return {
+            success: false,
+            error: error.message ?? "Internal Server Error",
+        }
+    }
+}
+
+export const getEventScanProgress = async (event_id: string): Promise<EventTicketProgressResponse> => {
+    let url = `${API_URL}/wp-json/ticket_scanner/v1/get_event_scan_progress`;
+
+    try {
+        const user = await getSessionUser();
+        let response = await fetch(url, {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify({
+                user_id: user?.id,
+                event_id: event_id,
+            }),
+        });
+
+        const data = JSON.parse(await response.json());
+        console.log(data);
+        
         return data;
     } catch (error: any) {
         return {

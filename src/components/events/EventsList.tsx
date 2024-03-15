@@ -31,7 +31,7 @@ export const EventsList: React.FC<EventsListProps> = () => {
     return (
         <div className='container mx-auto px-4 w-full my-4'>
             <div className="my-4 flex flex-col w-full">
-                <h1 className="text-3xl flex items-center font-semibold mb-4 text-left">
+                <h1 className="text-3xl font-semibold mb-4 text-center">
                     Your Events
                 </h1>
                 <Suspense fallback={<Loader />}>
