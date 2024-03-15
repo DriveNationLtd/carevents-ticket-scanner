@@ -3,8 +3,8 @@
 import { auth } from "@/auth";
 import { EventTicketProgressResponse, EventsResponse, SingleEventResponse, TicketRedeemResponse, TicketScanResponse } from "@/types/event";
 
-const API_URL = process.env.HEADLESS_CMS_API_URL ?? "https://www.carevents.com";
-
+// process.env.HEADLESS_CMS_API_URL ?? 
+const API_URL = "https://www.carevents.com";
 const getSessionUser = async () => {
     const session = await auth();
 

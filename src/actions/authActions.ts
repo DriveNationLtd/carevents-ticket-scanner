@@ -3,7 +3,8 @@
 import { signIn, signOut } from "@/auth"
 import { cookies } from 'next/headers'
 
-const API_URL = process.env.HEADLESS_CMS_API_URL ?? "https://www.carevents.com";
+// process.env.HEADLESS_CMS_API_URL ?? 
+const API_URL = "https://www.carevents.com";
 
 export const verifyUser = async (credentials: { email: string; password: string }) => {
     let url = `${API_URL}/wp-json/ticket_scanner/v1/verify_user`
