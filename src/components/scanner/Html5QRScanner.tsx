@@ -1,7 +1,4 @@
-import Modal from '@/shared/Modal';
-import SlideInFromBottomToTop from '@/shared/SlideIn';
 import { ThemeBtn } from '@/shared/ThemeBtn';
-import clsx from 'clsx';
 import { CameraDevice, Html5Qrcode } from 'html5-qrcode';
 import { Html5QrcodeError } from 'html5-qrcode/esm/core';
 import { Html5QrcodeScannerConfig } from 'html5-qrcode/esm/html5-qrcode-scanner';
@@ -14,7 +11,7 @@ interface Html5QRScannerProps {
 }
 
 const qrcodeRegionId = "reader";
-let defaultConfig: Html5QrcodeScannerConfig = { qrbox: { width: 250, height: 250 }, fps: 20, }
+let defaultConfig: Html5QrcodeScannerConfig = { qrbox: { width: 250, height: 250 }, fps: 40, }
 let html5QrCode: Html5Qrcode;
 
 // Creates the configuration object for Html5QrcodeScanner.
@@ -62,18 +59,19 @@ export const Html5QRScanner: React.FC<Html5QRScannerProps> = ({
         oldRegion && oldRegion.remove();
     }, []);
 
+    const qrCodeSuccessCallback = (decodedText: string) => {
+        setTimeout(() => {
+            onScanSuccess(decodedText);
+            handleStop();
+        }, 2000);
+    };
+
     const handleClickAdvanced = () => {
         if (isScanning) return;
 
         try {
             const config = createConfig();
             setIsScanning(true);
-
-            const qrCodeSuccessCallback = (decodedText: string) => {
-                onScanSuccess(decodedText);
-                console.log(`QR Code detected: ${decodedText}`);
-                handleStop();
-            };
 
             html5QrCode.start(
                 { facingMode: "environment" },
