@@ -84,8 +84,6 @@ export const getEventScanProgress = async (event_id: string): Promise<EventTicke
         });
 
         const data = JSON.parse(await response.json());
-        console.log(data);
-        
         return data;
     } catch (error: any) {
         return {

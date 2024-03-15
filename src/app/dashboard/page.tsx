@@ -6,7 +6,7 @@ const Dashboard: React.FC = async () => {
     let user = session?.user;
 
     return (
-        <div className='flex flex-col container items-center justify-center w-full h-full'>
+        <div className='flex flex-col container items-center justify-center w-full h-full mt-6'>
             <h1 className="text-3xl font-bold">Dashboard</h1>
             <p className="text-white/70 text-sm">Welcome to the dashboard, {user?.first_name}!</p>
             <div className="flex justify-center items-center my-5 w-full px-4">
