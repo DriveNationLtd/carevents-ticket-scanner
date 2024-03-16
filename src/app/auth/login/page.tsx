@@ -33,8 +33,14 @@ const Login = () => {
 
             if (rawFormData.email && rawFormData.password) {
                 setError("");
+
                 const response = await handleSignIn(rawFormData)
                 console.log(response);
+
+                if (response?.error) {
+                    setError(response.error);
+                    return;
+                }
             }
         } catch (error: any) {
             setError("Invalid credentials");
