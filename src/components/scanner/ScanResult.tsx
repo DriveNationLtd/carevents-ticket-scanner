@@ -136,11 +136,11 @@ export const ScanResult: React.FC<ScanResultProps> = ({
                         <span className='text-slate-400 text-xs'>Customer</span>
                         <h2 className="text-black text-md font-bold text-center">{billing_first_name} {billing_last_name}</h2>
                     </div>
-
+                    {/* 
                     <div className="flex flex-col items-center justify-center">
                         <span className='text-slate-400 text-xs'>Email</span>
                         <h2 className="text-black text-md font-bold text-center">{billing_email}</h2>
-                    </div>
+                    </div> */}
 
                     <div className="flex flex-col items-center justify-center">
                         <span className='text-slate-400 text-xs'>Status</span>
@@ -165,7 +165,7 @@ export const ScanResult: React.FC<ScanResultProps> = ({
                         <h2 className="text-black text-md font-bold text-center">{formatDate(date_created_gmt)}</h2>
                     </div>
 
-
+                    {/* 
                     <div className="flex flex-col items-center justify-center">
                         <span className='text-slate-400 text-xs'>Ticket Start</span>
                         <h2 className="text-black text-md font-bold text-center">{formatDate(ticket_date_start)}</h2>
@@ -174,7 +174,7 @@ export const ScanResult: React.FC<ScanResultProps> = ({
                     <div className="flex flex-col items-center justify-center">
                         <span className='text-slate-400 text-xs'>Ticket End</span>
                         <h2 className="text-black text-md font-bold text-center">{formatDate(ticket_date_end)}</h2>
-                    </div>
+                    </div> */}
 
                     <div className="flex flex-col items-center justify-center">
                         <span className='text-slate-400 text-xs'>Special Display?</span>
