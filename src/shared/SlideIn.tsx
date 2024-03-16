@@ -21,7 +21,7 @@ export const transitionClasses = {
 const SlideInFromBottomToTop: React.FC<SlideInFromBottomToTopProps> = ({
     children,
     isOpen,
-    height = '90%',
+    height = '100%',
     onClose
 }) => {
     return (
@@ -31,7 +31,7 @@ const SlideInFromBottomToTop: React.FC<SlideInFromBottomToTopProps> = ({
             style={{ height }}
             {...transitionClasses}
         >
-            <div className="flex justify-start w-full mt-5">
+            <div className="flex justify-start w-full mt-5 overflow-scroll">
                 <button
                     onClick={() => onClose()}
                     className="text-md text-black mb-3 cursor-pointer font-bold"
