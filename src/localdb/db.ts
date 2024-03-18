@@ -1,7 +1,13 @@
 import sqlite3 from 'sqlite3';
 
 // Connect to SQLite database
-const db = new sqlite3.Database('../data.db');
+let db: sqlite3.Database;
+try {
+    db = new sqlite3.Database('data.db');
+} catch (error: any) {
+    console.error(error.message);
+    db = new sqlite3.Database(':memory:');
+}
 
 // Create table if not exists
 db.serialize(() => {
@@ -23,6 +29,11 @@ db.close();
 
 // Function to establish SQLite database connection
 export const initDatabase = (): sqlite3.Database => {
-    return new sqlite3.Database('./data.db');
+    try {
+        return new sqlite3.Database('data.db');
+    } catch (error: any) {
+        console.error(error.message);
+        return new sqlite3.Database(':memory:');
+    }
 };
 
