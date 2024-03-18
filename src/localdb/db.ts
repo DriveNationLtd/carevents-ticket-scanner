@@ -1,13 +1,27 @@
 import sqlite3 from 'sqlite3';
+import { open, Database } from "sqlite";
+
+// Function to establish SQLite database connection
+export const initDatabase = (): sqlite3.Database => {
+    try {
+        return new sqlite3.Database(
+            'data.db',
+            sqlite3.OPEN_READWRITE | sqlite3.OPEN_CREATE,
+            (err) => {
+                if (err) {
+                    return console.error(err.message);
+                }
+                console.log("Connected to the SQlite database.");
+            }
+        );
+    } catch (error: any) {
+        console.error(error.message);
+        return new sqlite3.Database(':memory:');
+    }
+};
 
 // Connect to SQLite database
-let db: sqlite3.Database;
-try {
-    db = new sqlite3.Database('data.db');
-} catch (error: any) {
-    console.error(error.message);
-    db = new sqlite3.Database(':memory:');
-}
+const db = initDatabase();
 
 // Create table if not exists
 db.serialize(() => {
@@ -26,14 +40,3 @@ db.serialize(() => {
 });
 
 db.close();
-
-// Function to establish SQLite database connection
-export const initDatabase = (): sqlite3.Database => {
-    try {
-        return new sqlite3.Database('data.db');
-    } catch (error: any) {
-        console.error(error.message);
-        return new sqlite3.Database(':memory:');
-    }
-};
-
