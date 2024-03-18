@@ -5,9 +5,13 @@ import Image from "next/image"
 import { Button } from "@/shared/Button";
 import { handleSignIn } from "@/actions/authActions";
 import { ErrorMessage } from "@/shared/ErrorMessage";
+import { useSearchParams } from "next/navigation";
 
 const Login = () => {
     const [error, setError] = useState("");
+
+    const searchParams = useSearchParams();
+    const callbackUrl = searchParams.get("callbackUrl");
 
     useEffect(() => {
         setTimeout(() => {
@@ -19,7 +23,8 @@ const Login = () => {
         try {
             const rawFormData = {
                 email: formData.get("email")?.toString(),
-                password: formData.get("password")?.toString()
+                password: formData.get("password")?.toString(),
+                redirectTo: callbackUrl
             }
 
             // validation
