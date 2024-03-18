@@ -6,6 +6,7 @@ import { auth } from "@/auth";
 import { SessionProvider } from "next-auth/react";
 
 const poppins = Poppins({ subsets: ["latin"], weight: ["400", "500", "600"] });
+export const revalidate = 3600 // revalidate at most every hour
 
 export const metadata: Metadata = {
   title: "CE Ticket Scanner",

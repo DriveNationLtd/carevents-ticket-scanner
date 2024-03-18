@@ -99,6 +99,7 @@ export interface Event {
 
 export interface EventsResponse {
     success: boolean;
+    isLocal?: boolean;
     error?: string;
     events?: Event[];
     user_id?: string;

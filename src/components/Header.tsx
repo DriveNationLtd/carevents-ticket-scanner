@@ -9,6 +9,7 @@ import { SignOutBtn } from "@/shared/SignOutBtn";
 import useServiceWorker from "@/hooks/useSW";
 import { ConnectivityStatus } from "@/shared/ConnectivityStatus";
 import { useSession } from "next-auth/react";
+import { ReSync } from "@/shared/ReSync";
 
 const navLinks = [
     { href: '/', label: 'Home' },
@@ -79,6 +80,7 @@ export const Header: React.FC = () => {
                                 </Link>
                             </li>
                         ))}
+                        <ReSync />
                     </div>
 
                     <div className="bottom-nav">

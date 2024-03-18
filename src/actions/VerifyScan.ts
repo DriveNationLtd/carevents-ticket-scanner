@@ -1,7 +1,9 @@
 "use server"
 
 import { auth } from "@/auth";
+import { getAllEvents } from "@/localdb/db-helpers";
 import { EventTicketProgressResponse, EventsResponse, SingleEventResponse, TicketRedeemResponse, TicketScanResponse } from "@/types/event";
+import { syncEvents } from "./syncAction";
 
 const API_URL = process.env.HEADLESS_CMS_API_URL ?? "https://www.carevents.com";
 
@@ -20,7 +22,19 @@ export const getEvents = async (): Promise<EventsResponse> => {
 
     try {
         const user = await getSessionUser();
+
+        // try to get events from local database
+        const events = await getAllEvents();
+        if (events.length > 0) {
+            return {
+                success: true,
+                isLocal: true,
+                events,
+            }
+        }
+
         let response = await fetch(url, {
+            cache: "force-cache",
             method: "POST",
             headers: {
                 "Content-Type": "application/json",
@@ -32,6 +46,7 @@ export const getEvents = async (): Promise<EventsResponse> => {
         });
 
         const data = JSON.parse(await response.json());
+        syncEvents(data?.events);
         return data;
     } catch (error: any) {
         return {
@@ -47,6 +62,7 @@ export const getEventById = async (id: string): Promise<SingleEventResponse> => 
     try {
         const user = await getSessionUser();
         let response = await fetch(url, {
+            cache: "force-cache",
             method: "POST",
             headers: {
                 "Content-Type": "application/json",
@@ -73,6 +89,7 @@ export const getEventScanProgress = async (event_id: string): Promise<EventTicke
     try {
         const user = await getSessionUser();
         let response = await fetch(url, {
+            cache: "force-cache",
             method: "POST",
             headers: {
                 "Content-Type": "application/json",
@@ -100,6 +117,7 @@ export const verifyScan = async (scannedData: string | null): Promise<TicketScan
         const user = await getSessionUser();
 
         let response = await fetch(url, {
+            cache: "force-cache",
             method: "POST",
             headers: {
                 "Content-Type": "application/json",

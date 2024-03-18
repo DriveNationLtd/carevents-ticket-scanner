@@ -4,9 +4,7 @@ import { EventTile, NoEventsPlaceholder } from "./EventTile";
 import { Suspense } from "react";
 import Loader from "@/shared/Loader";
 
-interface EventsListProps {
-
-}
+interface EventsListProps { }
 
 export const EventsAysnc: React.FC = async () => {
     const data = await getEvents();
@@ -14,6 +12,8 @@ export const EventsAysnc: React.FC = async () => {
     return (
         <>
             {data.error && <p className='text-red-500'>{data.error}</p>}
+            {data.isLocal && <p className='text-gray-300/70 text-xs mb-3 text-center'>You are using cached data</p>}
+
             {(data.events && !data.error && data.events.length > 0) ? (
                 <div className='flex flex-col w-full'>
                     {data.events.map((event: Event, idx: number) => {
