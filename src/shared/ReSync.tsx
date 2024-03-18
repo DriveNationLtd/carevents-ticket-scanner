@@ -1,11 +1,16 @@
 'use client'
 import { Button } from "./Button";
 import { resyncAction } from "@/actions/syncAction";
+interface ReSyncProps {
+    callback?: () => void;
+}
 
-export const ReSync: React.FC = () => {
+export const ReSync: React.FC<ReSyncProps> = ({
+    callback
+}) => {
     const handleReSync = async () => {
         await resyncAction()
-        // revalidate 
+        callback?.();
     }
 
     return (

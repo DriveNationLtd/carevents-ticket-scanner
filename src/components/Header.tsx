@@ -80,7 +80,7 @@ export const Header: React.FC = () => {
                                 </Link>
                             </li>
                         ))}
-                        <ReSync />
+                        <ReSync callback={() => closeMenu()} />
                     </div>
 
                     <div className="bottom-nav">

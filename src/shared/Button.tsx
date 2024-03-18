@@ -9,9 +9,10 @@ interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
 
 export const Button: React.FC<ButtonProps> = (props) => {
     const { pending } = useFormStatus();
+    const isFullPageLoading = props.fullPageLoading;
 
     const renderIcon = () => {
-        if (pending && !props.fullPageLoading) {
+        if (pending && !isFullPageLoading) {
             return <i className="ml-2 fas fa-spinner fa-spin"></i>
         }
 
@@ -21,7 +22,7 @@ export const Button: React.FC<ButtonProps> = (props) => {
     }
     return (
         <>
-            {props.fullPageLoading && pending && <Loader />}
+            {isFullPageLoading && pending && <Loader />}
             <button
                 {...props}
                 className={clsx(
