@@ -25,6 +25,7 @@ export const getEvents = async (): Promise<EventsResponse> => {
 
         // try to get events from local database
         const events = await getAllEvents();
+        console.log(events);
         if (events.length > 0) {
             return {
                 success: true,
