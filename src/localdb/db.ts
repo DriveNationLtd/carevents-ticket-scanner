@@ -18,7 +18,6 @@ const createTables = async (db: Database<sqlite3.Database, sqlite3.Statement>) =
     );`);
 }
 
-
 // Function to establish SQLite database connection
 export const initDatabase = (): sqlite3.Database => {
     try {
@@ -48,22 +47,3 @@ export const initDatabase = (): sqlite3.Database => {
         return db;
     }
 };
-// Connect to SQLite database
-// const db = initDatabase();
-// // db.serialize(() => {
-// //     db.run(`CREATE TABLE IF NOT EXISTS events (
-// //     id TEXT PRIMARY KEY,
-// //     ticket_type TEXT,
-// //     title TEXT,
-// //     start_date TEXT,
-// //     end_date TEXT,
-// //     status TEXT,
-// //     image TEXT,
-// //     total_orders INTEGER,
-// //     scanned_orders INTEGER,
-// //     error TEXT
-// // );`);
-// // });
-
-
-// db.close();
